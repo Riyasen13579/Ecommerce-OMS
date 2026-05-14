@@ -43,7 +43,9 @@ def get_wishlist_ids():
     if current_user.is_authenticated and not current_user.is_admin:
         return [w.product_id for w in Wishlist.query.filter_by(user_id=current_user.id).all()]
     return []
-
+@app.before_request
+def create_tables():
+    db.create_all()
 # ══ PUBLIC ROUTES ══════════════════════════════════════════════
 
 @app.route('/')
