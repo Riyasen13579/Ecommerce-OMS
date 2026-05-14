@@ -3,6 +3,7 @@ flask_sqlalchemy
 flask_login
 flask_bcrypt
 pymysql
+psycopg2-binary
 flask-mail
 cloudinary
 python-dotenv
