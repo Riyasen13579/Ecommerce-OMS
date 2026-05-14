@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard — ShopOMS{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2 class="h5 fw-semibold mb-0">📊 Admin dashboard</h2>
+  <a href="{{ url_for('add_product') }}" class="btn btn-warning btn-sm">+ Add product</a>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-6 col-md-3">
+    <div class="stat-card text-center p-3 rounded-3">
+      <div class="stat-value">{{ total_orders }}</div>
+      <div class="stat-label">Total orders</div>
+    </div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="stat-card text-center p-3 rounded-3">
+      <div class="stat-value text-warning">₹{{ total_revenue }}</div>
+      <div class="stat-label">Total revenue</div>
+    </div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="stat-card text-center p-3 rounded-3">
+      <div class="stat-value">{{ total_products }}</div>
+      <div class="stat-label">Products</div>
+    </div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="stat-card text-center p-3 rounded-3">
+      <div class="stat-value text-danger">{{ low_stock | length }}</div>
+      <div class="stat-label">Low stock alerts</div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-8">
+    <div class="card h-100">
+      <div class="card-body">
+        <h6 class="fw-semibold mb-3">Monthly revenue ({{ 2025 }})</h6>
+        <canvas id="revenueChart" height="100"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h6 class="fw-semibold mb-3">⚠️ Low stock products</h6>
+        {% if low_stock %}
+          {% for p in low_stock %}
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="small">{{ p.name }}</span>
+            <span class="badge bg-danger">{{ p.stock }} left</span>
+          </div>
+          {% endfor %}
+        {% else %}
+          <p class="text-muted small">All products are well stocked.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <h6 class="fw-semibold mb-3">Recent orders</h6>
+    <table class="table table-hover small mb-0 align-middle">
+      <thead class="table-light">
+        <tr><th>ID</th><th>Customer</th><th>Total</th><th>Status</th><th>Date</th></tr>
+      </thead>
+      <tbody>
+        {% for order in recent_orders %}
+        <tr>
+          <td>#{{ order.id }}</td>
+          <td>{{ order.user.username }}</td>
+          <td>₹{{ order.total_amount }}</td>
+          <td>
+            {% if order.status == 'delivered' %}
+              <span class="badge bg-success">Delivered</span>
+            {% elif order.status == 'shipped' %}
+              <span class="badge bg-info text-dark">Shipped</span>
+            {% else %}
+              <span class="badge bg-warning text-dark">Processing</span>
+            {% endif %}
+          </td>
+          <td>{{ order.created_at.strftime('%d %b') }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a href="{{ url_for('orders') }}" class="btn btn-outline-secondary btn-sm mt-3">View all orders</a>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const monthly = {{ monthly_revenue | safe }};
+const ctx = document.getElementById('revenueChart').getContext('2d');
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    datasets: [{
+      label: 'Revenue (₹)',
+      data: monthly,
+      backgroundColor: 'rgba(255, 193, 7, 0.7)',
+      borderColor: 'rgba(255, 193, 7, 1)',
+      borderWidth: 1,
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+</script>
+{% endblock %}

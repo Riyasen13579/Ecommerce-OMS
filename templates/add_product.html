@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}{% if product %}Edit{% else %}Add{% endif %} Product — ShopOMS{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-7">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h2 class="h5 fw-bold mb-4">
+          {% if product %}✏️ Edit product{% else %}➕ Add new product{% endif %}
+        </h2>
+
+        <form method="POST" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label class="form-label">Product name</label>
+            <input type="text" name="name" class="form-control"
+                   value="{{ product.name if product else '' }}" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea name="description" class="form-control" rows="3">{{ product.description if product else '' }}</textarea>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Price (₹)</label>
+              <input type="number" name="price" class="form-control" step="0.01" min="0"
+                     value="{{ product.price if product else '' }}" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Stock quantity</label>
+              <input type="number" name="stock" class="form-control" min="0"
+                     value="{{ product.stock if product else '' }}" required>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Category</label>
+            <input type="text" name="category" class="form-control" placeholder="e.g. Electronics"
+                   value="{{ product.category if product else '' }}">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Product image</label>
+            <div class="upload-area mb-2 p-4 text-center rounded-3" id="upload-area"
+                 onclick="document.getElementById('image_file').click()">
+              <div id="upload-placeholder">
+                <div style="font-size: 2rem;">📷</div>
+                <p class="mb-1 fw-semibold">Click to upload image</p>
+                <p class="text-muted small mb-0">JPG, PNG, WEBP — max 10MB. Drag and drop also works.</p>
+              </div>
+              <img id="image-preview"
+                   src="{{ product.image_url if product else '' }}"
+                   class="{{ 'd-block' if product and product.image_url else 'd-none' }} mx-auto rounded"
+                   style="max-height: 180px; max-width: 100%; object-fit: contain;">
+            </div>
+            <input type="file" name="image_file" id="image_file"
+                   accept="image/*" class="d-none" onchange="previewImage(this)">
+
+            <div class="d-flex align-items-center gap-2 my-2">
+              <hr class="flex-grow-1">
+              <span class="text-muted small">or paste a URL instead</span>
+              <hr class="flex-grow-1">
+            </div>
+            <input type="text" name="image_url" class="form-control form-control-sm"
+                   placeholder="https://example.com/image.jpg"
+                   value="{{ product.image_url if product and not product.image_url.startswith('/static') else '' }}">
+            <div class="form-text">Upload a file OR paste a URL. Uploaded file takes priority.</div>
+          </div>
+
+          <div class="d-flex gap-2 mt-4">
+            <button type="submit" class="btn btn-warning fw-semibold">
+              {% if product %}Save changes{% else %}Add product{% endif %}
+            </button>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+  .upload-area {
+    border: 2px dashed #dee2e6;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    background: #f8f9fa;
+  }
+  .upload-area:hover { border-color: #ffc107; background: #fffbf0; }
+</style>
+<script>
+function previewImage(input) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const preview = document.getElementById('image-preview');
+      preview.src = e.target.result;
+      preview.classList.remove('d-none');
+      preview.classList.add('d-block');
+      document.getElementById('upload-placeholder').classList.add('d-none');
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+const area = document.getElementById('upload-area');
+area.addEventListener('dragover', e => { e.preventDefault(); area.style.borderColor = '#ffc107'; });
+area.addEventListener('dragleave', () => { area.style.borderColor = '#dee2e6'; });
+area.addEventListener('drop', e => {
+  e.preventDefault();
+  area.style.borderColor = '#dee2e6';
+  const file = e.dataTransfer.files[0];
+  if (file) {
+    const input = document.getElementById('image_file');
+    const dt = new DataTransfer();
+    dt.items.add(file);
+    input.files = dt.files;
+    previewImage(input);
+  }
+});
+</script>
+{% endblock %}

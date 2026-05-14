@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block title %}Products — BazaarCart{% endblock %}
+
+{% block content %}
+<div class="products-page-wrapper">
+
+  <!-- Filters sidebar -->
+  <aside class="filters-sidebar">
+    <div class="filters-card">
+      <div class="filters-title">🔧 Filters</div>
+      <form method="GET" action="{{ url_for('products') }}">
+        <div class="filter-group">
+          <div class="filter-group-label">Category</div>
+          {% set cats = ['Electronics','Clothing','Home','Books','Sports','Beauty','Toys','Kitchen'] %}
+          <label class="filter-radio-item {% if not selected_category %}active{% endif %}">
+            <input type="radio" name="category" value="" {% if not selected_category %}checked{% endif %}> All
+          </label>
+          {% for cat in cats %}
+          <label class="filter-radio-item {% if selected_category == cat %}active{% endif %}">
+            <input type="radio" name="category" value="{{ cat }}" {% if selected_category == cat %}checked{% endif %}> {{ cat }}
+          </label>
+          {% endfor %}
+        </div>
+        <div class="filter-group">
+          <div class="filter-group-label">Sort by</div>
+          <select name="sort" class="filter-select">
+            <option value="name" {% if sort=='name' %}selected{% endif %}>Name A–Z</option>
+            <option value="price_asc" {% if sort=='price_asc' %}selected{% endif %}>Price: Low → High</option>
+            <option value="price_desc" {% if sort=='price_desc' %}selected{% endif %}>Price: High → Low</option>
+          </select>
+        </div>
+        <input type="hidden" name="search" value="{{ search }}">
+        <button type="submit" class="filter-apply-btn">Apply Filters</button>
+        <a href="{{ url_for('products') }}" class="filter-clear-btn">Clear all</a>
+      </form>
+    </div>
+  </aside>
+
+  <!-- Products grid -->
+  <div class="products-main">
+    {% if search %}
+    <p class="search-result-label">Results for "<strong>{{ search }}</strong>" — {{ products|length }} items found</p>
+    {% endif %}
+
+    {% if products %}
+    <div class="products-grid">
+      {% for product in products %}
+      <div class="pcard">
+
+        <!-- Image area -->
+        <div class="pcard-img-wrap">
+          <img src="{{ product.image_url }}" class="pcard-img" alt="{{ product.name }}"
+               onerror="this.src='https://placehold.co/400x400/f2ede6/888?text=No+Image'">
+
+          <!-- Heart wishlist button (top right of image) -->
+          {% if current_user.is_authenticated and not current_user.is_admin %}
+          <form action="{{ url_for('toggle_wishlist', product_id=product.id) }}" method="POST"
+                class="heart-form" id="hf-{{ product.id }}">
+            <button type="submit"
+                    class="heart-btn {% if product.id in wishlist_ids %}hearted{% endif %}"
+                    title="{% if product.id in wishlist_ids %}Remove from wishlist{% else %}Add to wishlist{% endif %}"
+                    onclick="animateHeart(this)">
+              {% if product.id in wishlist_ids %}❤️{% else %}🤍{% endif %}
+            </button>
+          </form>
+          {% endif %}
+
+          <!-- Out of stock overlay -->
+          {% if product.stock == 0 %}
+          <div class="pcard-oos-overlay">OUT OF STOCK</div>
+          {% endif %}
+        </div>
+
+        <!-- Card body -->
+        <div class="pcard-body">
+          <span class="pcard-cat">{{ product.category }}</span>
+          <div class="pcard-name">{{ product.name[:55] }}</div>
+          <div class="pcard-stars">★★★★☆ <span class="pcard-reviews">({{ range(40,600)|random }})</span></div>
+          <div class="pcard-price">₹{{ "{:,.0f}".format(product.price) }}</div>
+
+          <!-- Action buttons -->
+          <div class="pcard-actions">
+            {% if product.stock > 0 %}
+              {% if current_user.is_authenticated and not current_user.is_admin %}
+              <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST" class="cart-form">
+                <button type="submit" class="pcard-cart-btn">
+                  🛒 Add to Cart
+                </button>
+              </form>
+              {% else %}
+              <a href="{{ url_for('login') }}" class="pcard-cart-btn pcard-signin-btn">
+                Sign in to Buy
+              </a>
+              {% endif %}
+            {% else %}
+              <button class="pcard-cart-btn pcard-oos-btn" disabled>Out of Stock</button>
+            {% endif %}
+          </div>
+
+          {% if product.stock > 0 and product.stock <= 5 %}
+          <div class="pcard-low-stock">⚠️ Only {{ product.stock }} left!</div>
+          {% endif %}
+        </div>
+
+      </div>
+      {% endfor %}
+    </div>
+
+    {% else %}
+    <div class="no-products-box">
+      <div style="font-size:3rem">🔍</div>
+      <p>No products found.</p>
+      <a href="{{ url_for('products') }}" class="filter-apply-btn" style="width:auto;display:inline-block;padding:10px 24px">Clear filters</a>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function animateHeart(btn) {
+  btn.classList.add('heart-pop');
+  setTimeout(() => btn.classList.remove('heart-pop'), 400);
+}
+
+// Instant heart toggle feedback (before page reload)
+document.querySelectorAll('.heart-form').forEach(form => {
+  form.addEventListener('submit', function(e) {
+    const btn = this.querySelector('.heart-btn');
+    const isHearted = btn.classList.contains('hearted');
+    btn.classList.toggle('hearted', !isHearted);
+    btn.textContent = isHearted ? '🤍' : '❤️';
+  });
+});
+
+// Cart button feedback
+document.querySelectorAll('.cart-form').forEach(form => {
+  form.addEventListener('submit', function(e) {
+    const btn = this.querySelector('.pcard-cart-btn');
+    btn.textContent = '✓ Added!';
+    btn.style.background = 'var(--green)';
+    setTimeout(() => {
+      btn.textContent = '🛒 Add to Cart';
+      btn.style.background = '';
+    }, 1500);
+  });
+});
+</script>
+{% endblock %}

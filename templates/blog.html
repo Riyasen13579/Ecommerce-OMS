@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Blog — BazaarCart{% endblock %}
+{% block content %}
+<div class="blog-hero">
+  <div class="blog-hero-inner">
+    <div class="blog-eyebrow">✦ BAZAARCART JOURNAL</div>
+    <h1 class="blog-hero-title">Stories, Tips &<br>Shopping Guides</h1>
+    <p class="blog-hero-sub">Discover trends, deals, and lifestyle inspiration curated by our team</p>
+  </div>
+</div>
+
+<div class="blog-container">
+  <!-- Featured post -->
+  <div class="blog-featured">
+    <div class="blog-featured-img" style="background:url('https://images.pexels.com/photos/5632398/pexels-photo-5632398.jpeg?w=800') center/cover"></div>
+    <div class="blog-featured-content">
+      <span class="blog-tag">FASHION</span>
+      <h2 class="blog-featured-title">Top 10 Hoodie Styles to Own This Winter 2025</h2>
+      <p class="blog-featured-excerpt">From oversized fits to cropped styles, we break down the must-have hoodies that are dominating the streets this season. Natural fabrics, minimal logos, maximum comfort.</p>
+      <div class="blog-meta"><span>Dec 12, 2025</span> · <span>5 min read</span></div>
+      <a href="#" class="blog-read-btn">Read Article →</a>
+    </div>
+  </div>
+
+  <!-- Blog grid -->
+  <div class="blog-section-title">Latest Articles</div>
+  <div class="blog-grid">
+    {% set posts = [
+      ('https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg?w=400','TECH','Best Budget Smartphones Under ₹15,000 in 2025','Our experts tested 20+ phones to find the best value for money picks this year.','Nov 28, 2025','4 min read'),
+      ('https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?w=400','HOME','10 Ways to Transform Your Living Room on a Budget','Small changes, big impact. Here are our favourite affordable home decor upgrades.','Nov 20, 2025','6 min read'),
+      ('https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?w=400','FITNESS','The Best Workout Gear for Home Training in 2025','Everything you need to build a home gym without breaking the bank.','Nov 15, 2025','5 min read'),
+      ('https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg?w=400','BEAUTY','Winter Skincare Routine: Products That Actually Work','We tested hundreds of products so you don\'t have to. Here\'s what made the cut.','Nov 10, 2025','7 min read'),
+      ('https://images.pexels.com/photos/1544716278-ca5e3f4abd8c?w=400','BOOKS','Must-Read Books Before 2026: Our Top Picks','From self-help to fiction — the books our team couldn\'t put down this year.','Nov 5, 2025','3 min read'),
+      ('https://images.pexels.com/photos/1599791/pexels-photo-1599791.jpeg?w=400','KITCHEN','Air Fryer Recipes That Will Change Your Life','Quick, healthy, and delicious — the best air fryer meals for busy weeknights.','Oct 28, 2025','5 min read'),
+    ] %}
+    {% for img, tag, title, excerpt, date, time in posts %}
+    <div class="blog-card">
+      <div class="blog-card-img" style="background:url('{{ img }}') center/cover"></div>
+      <div class="blog-card-body">
+        <span class="blog-tag">{{ tag }}</span>
+        <h3 class="blog-card-title">{{ title }}</h3>
+        <p class="blog-card-excerpt">{{ excerpt }}</p>
+        <div class="blog-meta">{{ date }} · {{ time }}</div>
+        <a href="#" class="blog-card-link">Read more →</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Newsletter -->
+  <div class="blog-newsletter">
+    <div class="blog-newsletter-text">
+      <div class="blog-eyebrow">✦ STAY UPDATED</div>
+      <h3>Get new articles in your inbox</h3>
+      <p>Weekly tips, trends and exclusive deals. No spam, ever.</p>
+    </div>
+    <div class="blog-newsletter-form">
+      <input type="email" placeholder="Your email address..." class="newsletter-input">
+      <button class="newsletter-btn">SUBSCRIBE</button>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,401 @@
+{% extends "base.html" %}
+{% block title %}BazaarCart — New Collection 2025{% endblock %}
+
+{% block content %}
+
+<!-- ══ HERO BANNER — Full width editorial ══════════════════ -->
+<section class="hero-editorial mb-0">
+  <div class="hero-editorial-inner">
+    <div class="hero-tag-line">✦ NEW COLLECTION 2025 ✦</div>
+    <h1 class="hero-big-text">NEW<br>COLLECTION</h1>
+    <div class="hero-sub-row">
+      <div class="hero-discount-badge">
+        <span>Get 30% discount</span>
+        <span>on your first order</span>
+      </div>
+      <div class="hero-cta-group">
+        <a href="{{ url_for('products') }}" class="btn-editorial">SHOP NOW →</a>
+        <a href="{{ url_for('products', category='Clothing') }}" class="btn-editorial-ghost">COLLECTIONS</a>
+      </div>
+    </div>
+  </div>
+  <!-- Sliding banner images -->
+  <div class="hero-banner-slides">
+    <div class="slide active" style="background:linear-gradient(160deg,#1a1a1a 0%,#2d2d2d 100%)">
+      <div class="slide-content">
+        <div class="slide-category">HOODIES & SWEATSHIRTS</div>
+        <div class="slide-title">STAY WARM.<br>STAY FRESH.</div>
+        <div class="slide-price">Starting ₹1,299</div>
+        <a href="{{ url_for('products', category='Clothing') }}" class="slide-btn">DISCOVER NOW ⟶</a>
+      </div>
+      <div class="slide-image-area" style="background:url('https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?w=600') center/cover"></div>
+    </div>
+    <div class="slide" style="background:linear-gradient(160deg,#0f1111 0%,#232f3e 100%)">
+      <div class="slide-content">
+        <div class="slide-category">ELECTRONICS & TECH</div>
+        <div class="slide-title">POWER YOUR<br>EVERYDAY.</div>
+        <div class="slide-price">Up to 40% off</div>
+        <a href="{{ url_for('products', category='Electronics') }}" class="slide-btn">SHOP TECH ⟶</a>
+      </div>
+      <div class="slide-image-area" style="background:url('https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg?w=600') center/cover"></div>
+    </div>
+    <div class="slide" style="background:linear-gradient(160deg,#1a0a00 0%,#3d1a00 100%)">
+      <div class="slide-content">
+        <div class="slide-category">SPORTS & FITNESS</div>
+        <div class="slide-title">TRAIN HARD.<br>LOOK GOOD.</div>
+        <div class="slide-price">New Season Gear</div>
+        <a href="{{ url_for('products', category='Sports') }}" class="slide-btn">GET ACTIVE ⟶</a>
+      </div>
+      <div class="slide-image-area" style="background:url('https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?w=600') center/cover"></div>
+    </div>
+  </div>
+  <!-- Slide dots -->
+  <div class="slide-dots">
+    <span class="dot active" onclick="goSlide(0)"></span>
+    <span class="dot" onclick="goSlide(1)"></span>
+    <span class="dot" onclick="goSlide(2)"></span>
+  </div>
+</section>
+
+<!-- ══ MARQUEE STRIP ════════════════════════════════════════ -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span>FREE DELIVERY OVER ₹499</span><span>✦</span>
+    <span>NEW ARRIVALS EVERY WEEK</span><span>✦</span>
+    <span>10-DAY EASY RETURNS</span><span>✦</span>
+    <span>100% AUTHENTIC PRODUCTS</span><span>✦</span>
+    <span>SECURE PAYMENTS</span><span>✦</span>
+    <span>FREE DELIVERY OVER ₹499</span><span>✦</span>
+    <span>NEW ARRIVALS EVERY WEEK</span><span>✦</span>
+    <span>10-DAY EASY RETURNS</span><span>✦</span>
+    <span>100% AUTHENTIC PRODUCTS</span><span>✦</span>
+    <span>SECURE PAYMENTS</span><span>✦</span>
+  </div>
+</div>
+
+<!-- ══ ABOUT US BLOCK ═══════════════════════════════════════ -->
+<section class="about-block">
+  <div class="about-left">
+    <div class="about-label">WHO WE ARE</div>
+    <h2 class="about-heading">ABOUT<br>US</h2>
+    <p class="about-text">BazaarCart is India's fastest growing online marketplace — built to give everyone access to quality products at honest prices. From fashion to electronics, home to beauty, we bring it all to your doorstep.</p>
+    <p class="about-text-sm">Our platform connects thousands of sellers with millions of buyers across India. Every product is quality-checked, every delivery is tracked, and every customer is valued.</p>
+    <a href="{{ url_for('products') }}" class="about-read-more">Read more ⟶</a>
+  </div>
+  <div class="about-right">
+    <div class="about-img-grid">
+      <div class="about-img-big" style="background:url('https://images.pexels.com/photos/5632398/pexels-photo-5632398.jpeg?w=500') center/cover"></div>
+      <div class="about-img-small" style="background:url('https://images.pexels.com/photos/4968391/pexels-photo-4968391.jpeg?w=300') center/cover"></div>
+      <div class="about-img-wide" style="background:url('https://images.pexels.com/photos/1598507/pexels-photo-1598507.jpeg?w=400') center/cover"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATS BLOCK ══════════════════════════════════════════ -->
+<section class="stats-block">
+  <div class="stat-box">
+    <div class="stat-num">10M+</div>
+    <div class="stat-desc">Happy Customers</div>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat-box">
+    <div class="stat-num">500K+</div>
+    <div class="stat-desc">Products Listed</div>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat-box">
+    <div class="stat-num">50K+</div>
+    <div class="stat-desc">Sellers Onboard</div>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat-box">
+    <div class="stat-num">28</div>
+    <div class="stat-desc">States Delivered</div>
+  </div>
+</section>
+
+<!-- ══ CATEGORY BLOCKS ══════════════════════════════════════ -->
+<section class="category-blocks-section">
+  <div class="section-label-row">
+    <div class="section-label">SHOP BY CATEGORY</div>
+    <a href="{{ url_for('products') }}" class="see-all-link">See all →</a>
+  </div>
+  <div class="cat-blocks-grid">
+    <a href="{{ url_for('products', category='Clothing') }}" class="cat-block cat-block-large" style="background:url('https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?w=700') center/cover">
+      <div class="cat-block-overlay"></div>
+      <div class="cat-block-content">
+        <div class="cat-block-tag">TRENDING</div>
+        <div class="cat-block-name">CLOTHING</div>
+        <div class="cat-block-sub">Hoodies · Jeans · Kurtas · Tees</div>
+        <div class="cat-block-btn">SHOP NOW ⟶</div>
+      </div>
+    </a>
+    <div class="cat-block-col">
+      <a href="{{ url_for('products', category='Electronics') }}" class="cat-block cat-block-medium" style="background:url('https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg?w=500') center/cover">
+        <div class="cat-block-overlay"></div>
+        <div class="cat-block-content">
+          <div class="cat-block-tag">UP TO 40% OFF</div>
+          <div class="cat-block-name">ELECTRONICS</div>
+          <div class="cat-block-btn">SHOP NOW ⟶</div>
+        </div>
+      </a>
+      <a href="{{ url_for('products', category='Sports') }}" class="cat-block cat-block-medium" style="background:url('https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?w=500') center/cover">
+        <div class="cat-block-overlay"></div>
+        <div class="cat-block-content">
+          <div class="cat-block-tag">NEW ARRIVALS</div>
+          <div class="cat-block-name">SPORTS</div>
+          <div class="cat-block-btn">SHOP NOW ⟶</div>
+        </div>
+      </a>
+    </div>
+    <div class="cat-block-col">
+      <a href="{{ url_for('products', category='Beauty') }}" class="cat-block cat-block-medium" style="background:url('https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg?w=500') center/cover">
+        <div class="cat-block-overlay"></div>
+        <div class="cat-block-content">
+          <div class="cat-block-tag">BESTSELLER</div>
+          <div class="cat-block-name">BEAUTY</div>
+          <div class="cat-block-btn">SHOP NOW ⟶</div>
+        </div>
+      </a>
+      <a href="{{ url_for('products', category='Home') }}" class="cat-block cat-block-medium" style="background:url('https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?w=500') center/cover">
+        <div class="cat-block-overlay"></div>
+        <div class="cat-block-content">
+          <div class="cat-block-tag">HOME DECOR</div>
+          <div class="cat-block-name">HOME</div>
+          <div class="cat-block-btn">SHOP NOW ⟶</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DEAL OF THE DAY ══════════════════════════════════════ -->
+<section class="deal-section">
+  <div class="deal-left">
+    <div class="deal-eyebrow">⚡ LIMITED TIME OFFER</div>
+    <h2 class="deal-heading">DEAL OF<br>THE DAY</h2>
+    <p class="deal-desc">Handpicked deals refreshed every 24 hours. Don't miss out on our biggest discounts of the season on kitchen appliances, electronics and more.</p>
+    <div class="deal-countdown">
+      <div class="deal-time-box"><span id="dh">00</span><small>HRS</small></div>
+      <div class="deal-colon">:</div>
+      <div class="deal-time-box"><span id="dm">00</span><small>MIN</small></div>
+      <div class="deal-colon">:</div>
+      <div class="deal-time-box"><span id="ds">00</span><small>SEC</small></div>
+    </div>
+    <a href="{{ url_for('products', category='Kitchen') }}" class="btn-editorial mt-3 d-inline-block">GRAB THE DEAL</a>
+  </div>
+  <div class="deal-right">
+    <div class="deal-img" style="background:url('https://images.pexels.com/photos/1599791/pexels-photo-1599791.jpeg?w=600') center/cover"></div>
+    <div class="deal-badge-float">UP TO<br><span>70%</span><br>OFF</div>
+  </div>
+</section>
+
+<!-- ══ POPULAR GOODS / FEATURED PRODUCTS ═══════════════════ -->
+<section class="popular-section">
+  <div class="section-label-row">
+    <div>
+      <div class="section-label">POPULAR GOODS</div>
+      <p class="section-sublabel">Frequently purchased products this season</p>
+    </div>
+    <a href="{{ url_for('products') }}" class="see-all-link">See all products →</a>
+  </div>
+
+  {% if products %}
+  <div class="products-grid">
+    {% for product in products %}
+    <div class="pcard">
+      <div class="pcard-img-wrap">
+        <img src="{{ product.image_url }}" class="pcard-img" alt="{{ product.name }}"
+             onerror="this.src='https://placehold.co/400x400/f2ede6/888?text=No+Image'">
+        {% if current_user.is_authenticated and not current_user.is_admin %}
+        <form action="{{ url_for('toggle_wishlist', product_id=product.id) }}" method="POST"
+              class="heart-form">
+          <button type="submit"
+                  class="heart-btn {% if product.id in wishlist_ids %}hearted{% endif %}"
+                  onclick="animateHeart(this)">
+            {% if product.id in wishlist_ids %}❤️{% else %}🤍{% endif %}
+          </button>
+        </form>
+        {% endif %}
+        {% if product.stock == 0 %}<div class="pcard-oos-overlay">OUT OF STOCK</div>{% endif %}
+      </div>
+      <div class="pcard-body">
+        <span class="pcard-cat">{{ product.category }}</span>
+        <div class="pcard-name">{{ product.name[:50] }}</div>
+        <div class="pcard-stars">★★★★☆</div>
+        <div class="pcard-price">₹{{ "{:,.0f}".format(product.price) }}</div>
+        <div class="pcard-actions">
+          {% if product.stock > 0 %}
+            {% if current_user.is_authenticated and not current_user.is_admin %}
+            <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST" class="cart-form">
+              <button type="submit" class="pcard-cart-btn">🛒 Add to Cart</button>
+            </form>
+            {% else %}
+            <a href="{{ url_for('login') }}" class="pcard-cart-btn pcard-signin-btn">Sign in to Buy</a>
+            {% endif %}
+          {% else %}
+            <button class="pcard-cart-btn pcard-oos-btn" disabled>Out of Stock</button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</section>
+
+<!-- ══ HOODIE SPOTLIGHT BLOCK ═══════════════════════════════ -->
+<section class="spotlight-block">
+  <div class="spotlight-text">
+    <div class="spotlight-eyebrow">✦ THIS SEASON'S PICK</div>
+    <h2 class="spotlight-heading">THE BEST<br>HOODIES ARE<br>ONLY HERE</h2>
+    <p class="spotlight-desc">Premium quality hoodies crafted from 100% natural materials. Oversized fit, minimal design, maximum comfort — made for the streets and the sofa alike.</p>
+    <div class="spotlight-tags">
+      <span>OVERSIZED FIT</span>
+      <span>NATURAL FABRIC</span>
+      <span>UNISEX</span>
+      <span>LIMITED STOCK</span>
+    </div>
+    <a href="{{ url_for('products', category='Clothing') }}" class="btn-editorial mt-4 d-inline-block">DISCOVER NOW ⟶</a>
+  </div>
+  <div class="spotlight-img" style="background:url('https://images.pexels.com/photos/6311475/pexels-photo-6311475.jpeg?w=700') center/cover">
+    <div class="spotlight-price-tag">From ₹1,299</div>
+  </div>
+</section>
+
+<!-- ══ WHY CHOOSE US BLOCKS ═════════════════════════════════ -->
+<section class="why-section">
+  <div class="section-label-row mb-4">
+    <div class="section-label">WHY BAZAARCART</div>
+  </div>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">🚚</div>
+      <div class="why-title">FREE DELIVERY</div>
+      <div class="why-desc">On all orders above ₹499. Express delivery available in 20+ cities within 24 hours.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">↩️</div>
+      <div class="why-title">EASY RETURNS</div>
+      <div class="why-desc">Not satisfied? Return within 10 days — no questions asked. Full refund guaranteed.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🔒</div>
+      <div class="why-title">SECURE PAYMENT</div>
+      <div class="why-desc">Your data is protected with 256-bit SSL encryption. Pay safely every time.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">✅</div>
+      <div class="why-title">100% AUTHENTIC</div>
+      <div class="why-desc">Every product is verified and quality-checked before it reaches your door.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🎧</div>
+      <div class="why-title">24/7 SUPPORT</div>
+      <div class="why-desc">Our customer care team is always available to help you via chat, call or email.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🇮🇳</div>
+      <div class="why-title">MADE FOR INDIA</div>
+      <div class="why-desc">Built in India, for India. Supporting local sellers and artisans across all 28 states.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ OUR STORY BLOCK ══════════════════════════════════════ -->
+<section class="story-block">
+  <div class="story-img" style="background:url('https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?w=700') center/cover"></div>
+  <div class="story-content">
+    <div class="story-eyebrow">OUR ORIGIN STORY</div>
+    <h2 class="story-heading">BUILT IN INDIA,<br>FOR INDIA 🇮🇳</h2>
+    <p class="story-text">BazaarCart was founded in 2020 by a small team of engineers and entrepreneurs who believed that every Indian deserves access to quality products at fair prices — whether they live in Mumbai or a small town in Rajasthan.</p>
+    <p class="story-text">Starting with just 50 products and 3 sellers, we've grown to over 500,000 products and 50,000 sellers across the country. We're not just a marketplace — we're a movement to democratise commerce in India.</p>
+    <div class="story-milestones">
+      <div class="milestone"><span>2020</span> Founded in Bangalore</div>
+      <div class="milestone"><span>2021</span> Reached 1M customers</div>
+      <div class="milestone"><span>2023</span> Expanded to 28 states</div>
+      <div class="milestone"><span>2025</span> 10M+ happy customers</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NEWSLETTER BLOCK ══════════════════════════════════════ -->
+<section class="newsletter-block">
+  <div class="newsletter-content">
+    <div class="newsletter-eyebrow">✦ STAY IN THE LOOP</div>
+    <h2 class="newsletter-heading">GET EXCLUSIVE DEALS<br>IN YOUR INBOX</h2>
+    <p class="newsletter-sub">Subscribe and get 10% off your first order + early access to sales</p>
+    <div class="newsletter-form">
+      <input type="email" placeholder="Enter your email address..." class="newsletter-input">
+      <button class="newsletter-btn">SUBSCRIBE</button>
+    </div>
+    <p class="newsletter-note">No spam. Unsubscribe anytime.</p>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+// ── Slideshow ──────────────────────────────────────
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+
+function goSlide(n) {
+  slides[currentSlide].classList.remove('active');
+  dots[currentSlide].classList.remove('active');
+  currentSlide = n;
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
+}
+setInterval(() => goSlide((currentSlide + 1) % slides.length), 5000);
+
+// ── Countdown ─────────────────────────────────────
+function updateCountdown() {
+  const now = new Date();
+  const end = new Date(); end.setHours(23,59,59,0);
+  const diff = end - now;
+  document.getElementById('dh').textContent = String(Math.floor(diff/3600000)).padStart(2,'0');
+  document.getElementById('dm').textContent = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+  document.getElementById('ds').textContent = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
+}
+updateCountdown(); setInterval(updateCountdown, 1000);
+
+// ── Heart toggle ───────────────────────────────────
+function animateHeart(btn) {
+  btn.classList.add('heart-pop');
+  setTimeout(() => btn.classList.remove('heart-pop'), 400);
+}
+document.querySelectorAll('.heart-form').forEach(form => {
+  form.addEventListener('submit', function() {
+    const btn = this.querySelector('.heart-btn');
+    const isHearted = btn.classList.contains('hearted');
+    btn.classList.toggle('hearted', !isHearted);
+    btn.textContent = isHearted ? '🤍' : '❤️';
+  });
+});
+document.querySelectorAll('.cart-form').forEach(form => {
+  form.addEventListener('submit', function() {
+    const btn = this.querySelector('.pcard-cart-btn');
+    btn.textContent = '✓ Added!';
+    btn.style.background = '#27ae60';
+    setTimeout(() => { btn.textContent = '🛒 Add to Cart'; btn.style.background = ''; }, 1500);
+  });
+});
+
+// ── Newsletter ─────────────────────────────────────
+document.querySelector('.newsletter-btn').addEventListener('click', function() {
+  const input = document.querySelector('.newsletter-input');
+  if (input.value.includes('@')) {
+    this.textContent = '✓ SUBSCRIBED!';
+    this.style.background = '#2d9950';
+    input.value = '';
+    setTimeout(() => { this.textContent = 'SUBSCRIBE'; this.style.background = ''; }, 3000);
+  } else {
+    input.style.borderColor = '#e8400c';
+    setTimeout(() => input.style.borderColor = '', 2000);
+  }
+});
+</script>
+{% endblock %}
