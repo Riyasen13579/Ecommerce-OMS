@@ -1,4 +1,4 @@
-# BazaarCart — E-Commerce Order Management System
+# BazaarCart — E-Commerce Order Management System..
 
 A full-stack e-commerce order management system built with Python Flask, MySQL, HTML, CSS, and JavaScript. It includes user authentication, a shopping cart, wishlist, admin dashboard with sales analytics, Cloudinary image uploads, and dark mode.
 
